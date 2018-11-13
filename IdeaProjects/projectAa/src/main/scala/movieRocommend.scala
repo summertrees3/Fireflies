@@ -29,12 +29,12 @@ object movieRocommend {
 
     /* 步骤1：读取电影和评分的数据*/
     //读取信息到本地
-    val movies = sc.textFile("E:\\dwg\\Firefiles\\useFiles\\ml-latest-small\\movies.csv").map { line =>
+    val movies = sc.textFile("E:\\dwg\\Fireflies\\useFiles\\ml-latest-small\\movies.csv").map { line =>
       val fields = line.split(",")
       (fields(0).toInt, fields(1))
     }.collect().toMap
     //读取评分数据为RDD
-    val ratings = sc.textFile("E:\\dwg\\Firefiles\\useFiles\\ml-latest-small\\ratings.csv").map { line =>
+    val ratings = sc.textFile("E:\\dwg\\Fireflies\\useFiles\\ml-latest-small\\ratings.csv").map { line =>
       val fields = line.split(",")
       val rating = Rating(fields(0).toInt, fields(1).toInt, fields(2).toDouble)
       val timestamp = fields(3).toLong % 10

@@ -8,7 +8,7 @@ object SQLDemo {
     val conf=new SparkConf().setAppName("SQLDemo").setMaster("local[2]")
     val sc=new SparkContext(conf)
     val sqlContext=new SQLContext(sc)
-    val personRdd=sc.textFile("E:\\dwg\\Firefiles\\useFiles\\person.txt").map(line =>{
+    val personRdd=sc.textFile("E:\\dwg\\Fireflies\\useFiles\\person.txt").map(line =>{
       val fields=line.split(",")
       Person(fields(0).toInt,fields(1),fields(2).toInt)
     })

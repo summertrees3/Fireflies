@@ -12,7 +12,7 @@ object wordCount {
     val sc = new SparkContext(conf)
     sc.setLogLevel("ERROR")
 
-    val data = sc.textFile("E:\\dwg\\Firefiles\\useFiles\\readme.txt")
+    val data = sc.textFile("E:\\dwg\\Fireflies\\useFiles\\readme.txt")
     val wordcount = data.flatMap(_.split(" "))
       .map((_, 1))
       .reduceByKey(_ + _)
