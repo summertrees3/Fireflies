@@ -1,2 +1,1 @@
-# Fireflies
 Just mamba
