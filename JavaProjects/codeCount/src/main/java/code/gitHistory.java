@@ -37,7 +37,7 @@ import junit.framework.TestCase;
  */
 public class gitHistory extends TestCase {
 
-	String gitFilePath = "E:\\resume-system";
+	String gitFilePath = "E:\\quality-system";
 	File root = new File(gitFilePath);
 	Git git;
 	Repository repository;
@@ -74,7 +74,7 @@ public class gitHistory extends TestCase {
 			commitList.add(commit);
 		}
 
-		String dateStart = "2018-10-10 00:00:00";
+		String dateStart = "2018-10-01 00:00:00";
 
 		for (int i = commitList.size() - 1; i > 0; i--) {
 			AbstractTreeIterator newTree = prepareTreeParser(commitList.get(i));
@@ -120,7 +120,8 @@ public class gitHistory extends TestCase {
 					}
 
 				}
-				System.out.println("addLines=" + addLines + "\t" + "subLines=" + subLines + "\t" + str);
+//				System.out.println("addLines=" + addLines + "\t" + "subLines=" + subLines + "\t" + str);
+				System.out.println(addLines + "     "+ subLines + "\t" + str);
 
 				out.reset();
 			}
