@@ -176,9 +176,7 @@ public class ExcelToHtmlUtils {
         sb.append("<h2>"+pn+"</h2>");
         for (int i = 0; i < wb.getNumberOfSheets(); i++) {
         	classify(sb,i,wb);
-//        	Sheet sheet = wb.getSheetAt(i);//获取Sheet的内容
-//        	getHtml(wb,sheet,sb,i,isWithStyle);
-        }
+        }		//分类list
         sb.append("<h3>一、问题单</h3>");
         for(int j=0;j<list1.size();j++){
         	getHtml(wb,list1.get(j),sb,j,true,"list1");
