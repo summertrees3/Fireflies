@@ -1,2 +1,2 @@
-# Firefiles
+# Fireflies
 Just mamba
