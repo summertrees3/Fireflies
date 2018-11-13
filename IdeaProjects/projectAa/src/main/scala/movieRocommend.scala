@@ -79,7 +79,7 @@ object movieRocommend {
     for (rank <- ranks; lambda <- lambdas; numIter <- numIters) {
       val model = ALS.train(training, rank, numIter, lambda)
       val validationRmse = computeRmse(model, validation, numValidation)
-      println("RMSE (validation)=" + validationRmse + "for the model trained with rand =" + rank
+      println("RMSE (validation)=" + validationRmse + " for the model trained with rand =" + rank
         + ", lambda=" + lambda + ", and numIter= " + numIter + ".")
       if (validationRmse < bestValidationRmse) {
         bestModel = Some(model)
