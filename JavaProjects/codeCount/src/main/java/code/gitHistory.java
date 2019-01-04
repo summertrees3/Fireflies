@@ -16,6 +16,10 @@ import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.diff.Edit;
 import org.eclipse.jgit.diff.EditList;
 import org.eclipse.jgit.diff.RawTextComparator;
+import org.eclipse.jgit.errors.IncorrectObjectTypeException;
+import org.eclipse.jgit.errors.MissingObjectException;
+import org.eclipse.jgit.errors.StopWalkException;
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.patch.FileHeader;
@@ -23,6 +27,7 @@ import org.eclipse.jgit.patch.HunkHeader;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.revwalk.filter.RevFilter;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.junit.Before;
@@ -33,7 +38,7 @@ import junit.framework.TestCase;
 /**
  * @author dwg
  * @version V1.0
- * @date 2018å¹´10æœˆ11æ—¥
+ * @date 2018Äê10ÔÂ11ÈÕ
  */
 public class gitHistory extends TestCase {
 
@@ -57,7 +62,7 @@ public class gitHistory extends TestCase {
 	public void test() throws Exception {
 
 		try {
-			File file = new File("D://log//git.log");
+			File file = new File("D://log//git3.log");
 			PrintStream out = new PrintStream(file);
 			System.setOut(out);
 		} catch (FileNotFoundException e) {
@@ -65,10 +70,27 @@ public class gitHistory extends TestCase {
 		}
 
 		init();
-		RevWalk walk = new RevWalk(repository);
+//		RevWalk walk = new RevWalk(repository);
 		List<RevCommit> commitList = new ArrayList<RevCommit>();
-		// è·å–æäº¤çš„è®°å½•
-		Iterable<RevCommit> commits = git.log().call();
+		// »ñÈ¡Ìá½»µÄ¼ÇÂ¼
+//		ObjectId objId = repository.resolve("refs/heads/remote/master");
+		Iterable<RevCommit> commits = (Iterable<RevCommit>) git.log().setRevFilter(new RevFilter() {
+			
+			@Override
+			public boolean include(RevWalk walker, RevCommit cmit)
+					throws StopWalkException, MissingObjectException, IncorrectObjectTypeException, IOException {
+				// TODO Auto-generated method stub
+				return cmit.getAuthorIdent().getName().equals("zhangwei");
+			}
+			
+			@Override
+			public RevFilter clone() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		}).call();
+		
+//		System.out.println(git.log().call());
 
 		for (RevCommit commit : commits) {
 			commitList.add(commit);
@@ -76,19 +98,21 @@ public class gitHistory extends TestCase {
 
 		String dateStart = "2018-10-01 00:00:00";
 
-		for (int i = commitList.size() - 1; i > 0; i--) {
-			AbstractTreeIterator newTree = prepareTreeParser(commitList.get(i));
-			AbstractTreeIterator oldTree = prepareTreeParser(commitList.get(i - 1));
-			List<DiffEntry> diff = git.diff().setOldTree(oldTree).setNewTree(newTree).setShowNameAndStatusOnly(true)
-					.call();
+		for (int i = 0; i < commitList.size(); i++) {
+			AbstractTreeIterator newTree = prepareTreeParser(commitList.get(i+1));
+			
+			AbstractTreeIterator oldTree = prepareTreeParser(commitList.get(i));
+			
+			List<DiffEntry> diff = git.diff().setNewTree(newTree).setOldTree(oldTree).setShowNameAndStatusOnly(true).call();
+			
 
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			DiffFormatter df = new DiffFormatter(out);
-			// è®¾ç½®æ¯”è¾ƒå™¨ä¸ºå¿½ç•¥ç©ºç™½å­—ç¬¦å¯¹æ¯”ï¼ˆIgnores all whitespaceï¼‰
+			// ÉèÖÃ±È½ÏÆ÷ÎªºöÂÔ¿Õ°××Ö·û¶Ô±È£¨Ignores all whitespace£©
 			df.setDiffComparator(RawTextComparator.WS_IGNORE_ALL);
 			df.setRepository(git.getRepository());
 
-			Date dateA = commitList.get(i - 1).getAuthorIdent().getWhen();
+			Date dateA = commitList.get(i).getAuthorIdent().getWhen();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date dateB = sdf.parse(dateStart);
 
@@ -96,17 +120,21 @@ public class gitHistory extends TestCase {
 				continue;
 			}
 			String sdfDate = sdf.format(dateA);
-			System.out.println(commitList.get(i - 1).getAuthorIdent().getName() + "|" + sdfDate);
-			// æ¯ä¸€ä¸ªdiffEntryéƒ½æ˜¯ç¬¬ä¸ªæ–‡ä»¶ç‰ˆæœ¬ä¹‹é—´çš„å˜åŠ¨å·®å¼‚
+			System.out.println(commitList.get(i+1).getAuthorIdent().getName() + "|" + sdfDate);
+			
+//			System.out.println(diff);
+			
+			// Ã¿Ò»¸ödiffEntry¶¼ÊÇµÚ¸öÎÄ¼ş°æ±¾Ö®¼äµÄ±ä¶¯²îÒì
 			for (DiffEntry diffEntry : diff) {
+				
 				df.format(diffEntry);
 				String diffText = out.toString("UTF-8");
 				String[] line = diffText.split("\n");
 				String str = line[0].split("b/")[line[0].split("b/").length - 1];
 
-				// System.out.println(diffText);
+//				 System.out.println(diffText);
 
-				// è·å–æ–‡ä»¶å·®å¼‚ä½ç½®ï¼Œä»è€Œç»Ÿè®¡å·®å¼‚çš„è¡Œæ•°ï¼ˆå¢åŠ è¡Œæ•°ï¼Œå‡å°‘è¡Œæ•°ï¼‰
+				// »ñÈ¡ÎÄ¼ş²îÒìÎ»ÖÃ£¬´Ó¶øÍ³¼Æ²îÒìµÄĞĞÊı£¨Ôö¼ÓĞĞÊı£¬¼õÉÙĞĞÊı£©
 				FileHeader fileHeader = df.toFileHeader(diffEntry);
 				List<HunkHeader> hunks = (List<HunkHeader>) fileHeader.getHunks();
 				int addLines = 0;
@@ -131,9 +159,9 @@ public class gitHistory extends TestCase {
 	}
 
 	public AbstractTreeIterator prepareTreeParser(RevCommit commit) {
-		// System.out.println(commit.getId());
+//		 System.out.println(commit.getId());
 		try (RevWalk walk = new RevWalk(repository)) {
-			// System.out.println(commit.getTree().getId());
+//			 System.out.println(commit.getTree().getId());
 			RevTree tree = walk.parseTree(commit.getTree().getId());
 
 			CanonicalTreeParser oldTreeParser = new CanonicalTreeParser();

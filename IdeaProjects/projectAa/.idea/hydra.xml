@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="HydraSettings">
-    <option name="hydraStorePath" value="E:\dwg\Firefiles\IdeaProjects\projectAa\.hydra\idea" />
+    <option name="hydraStorePath" value="E:\dwg\Fireflies\IdeaProjects\projectAa\.hydra\idea" />
     <option name="noOfCores" value="2" />
-    <option name="projectRoot" value="E:\dwg\Firefiles\IdeaProjects\projectAa" />
+    <option name="projectRoot" value="E:\dwg\Fireflies\IdeaProjects\projectAa" />
     <option name="sourcePartitioner" value="auto" />
   </component>
 </project>
