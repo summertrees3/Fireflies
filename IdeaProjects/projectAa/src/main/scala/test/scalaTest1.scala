@@ -31,7 +31,7 @@ object scalaTest1 {
 
 
     //3
-    
+
 
   }
 }

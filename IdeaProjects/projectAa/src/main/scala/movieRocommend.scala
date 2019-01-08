@@ -40,14 +40,14 @@ object movieRocommend {
       val timestamp = fields(3).toLong % 10
       (timestamp, rating)
     }
-//    输出数据集基本信息
+    //    输出数据集基本信息
     val numRatings = ratings.count()
     val numUsers = ratings.map(_._2.user).distinct().count()
     val numMovies = ratings.map(_._2.product).distinct().count()
     println("Got " + numRatings + " ratings from " + numUsers + " users on " + numMovies + " movies")
     println()
 
-//    获取电影id
+    //    获取电影id
     val mostRateMovieIds = ratings.map(_._2.product).countByValue()
       .toSeq.sortBy(-_._2).take(50).map(_._1)
     val random = new Random(0)
