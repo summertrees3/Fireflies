@@ -1,0 +1,54 @@
+
+zookeeper	协调服务，监控节点，集群管理（是否有机器退出和加入、选举master）
+yarn		资源调度
+
+val spark=SparkSession.builder.appName('').get
+
+
+val data=spark.read.textFile("D:\\testFile\\readme.txt")
+
+val data=sc.textFile("D:\\testFile\\readme.txt")
+val wordcount=data.flatMap(_.split(" ")).map((_,1)).reduceByKey(_+_).sortBy(_._2,false).collect.foreach(println)
+
+
+
+log4j.rootCategory=ERROR, console
+
+
+
+linux:
+ctrl+a 行首
+ctrl+e 行尾
+ctrl+l 清屏
+truncate -s 0 test.txt  清空文本
+
+vi编辑模式：
+shift+6 行首
+shift+4 行尾
+（未insert）
+gg      文始
+shift+g 文末
+:(n)    第n行
+x       向后逐字删除
+X       向前逐字删除
+(n)x    连续向后删除n个字符
+d$      删除光标所在处，到该行的最后一个字符
+d0      删除光标所在到该行的最前面的一个字符
+u       后退
+ctrl+r  前进
+o       换行
+dd      删除当前行
+d1G     删除光标所在到第一行的所有数据
+dG      删除光标所在到最后一行的所有数据
+(n)dd   删除n行
+(n)yy   复制n行
+(n)p    粘贴n遍
+r       替换当前字符
+ctrl+g  显示当前行号
+
+#同时编辑两个文件,在两个文件中拷贝剪贴文本 
+vi file1 file2 
+yy 同时打开两个文件,在文件1的光标所在处拷贝所在行 
+:n 切换到文件2 (n=next) 
+p 在文件2的光标所在处粘贴所拷贝的行 
+:N 切换回文件1
