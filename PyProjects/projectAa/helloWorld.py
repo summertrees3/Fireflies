@@ -1,3 +1,87 @@
+import pymysql
+
+# 连接mysql操作
+# try:
+#     conn = pymysql.connect(host='10.20.73.172', user='root', passwd='root', db='test', port=3306, charset='utf8')
+#     cursor = conn.cursor()
+#     cursor.execute("select * from %s where id = %d" % ('students', 1))
+#     data = cursor.fetchall()
+#     # print(type(data))
+#     # print(type(data[0]))
+#     print(data)
+#
+#     cursor.close()
+#     conn.close()
+# except Exception:
+#     print("query failed!")
+
+
+# print(list(map(lambda x: x + x, [1, 2, 3, 4, 5])))
+# from functools import reduce
+# print(reduce(lambda x, y: x * y, [1, 2, 3, 4, 5]))
+#
+# L1 = ['adam', 'LISA', 'barT']
+# L2 = map(lambda name: name[:1].upper() + name[1:].lower(), L1)
+# print(list(L2))
+#
+# print(list(filter(lambda s: s and s.strip(), ['A', '', 'B', None, 'C', '  '])))
+
+# a[::-1]相当于a[-1:-len(a)-1:-1],也就是最后一个元素到第一个元素copy一遍（回数）
+# print(list(filter(lambda n: str(n) == str(n)[::-1], range(1, 100))))
+#
+# print(sorted(['bob', 'about', 'Zoo', 'Credit'], key=str.lower, reverse=True))
+
+# def by_name(t):
+#     return t[0].lower()
+# def by_score(t):
+#     return -t[1]
+# L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
+# print(sorted(L, key=by_score))
+
+
+# 装饰器
+# import functools
+# def log(func):
+#     # @functools.wraps(func)
+#     def wrapper(*args, **kw):
+#         print('call %s():' % func.__name__, end=" ")
+#         return func(*args, **kw)
+#     return wrapper
+# @log
+# def now():
+#     print('2019-02-21')
+# now()
+# print(now.__name__)
+
+# 偏函数
+# print(int('1000', base=2))
+# import functools
+# int2 = functools.partial(int, base=2)
+# print(int2('1000000'))
+
+
+# 使用模块
+# import sys
+# print(sys.path)
+
+
+# 获得一个对象的所有属性和方法
+# print(dir("str"))
+
+
+# 错误处理
+# try:
+#     r = 10 / int('0')
+#     print("result:", r)
+# except ValueError as e:
+#     print("ValueError:", e)
+# except ZeroDivisionError as e:
+#     print("ZeroDivisionError:", e)
+# else:
+#     print("no error!")
+# finally:
+#     print("一定执行！")
+
 # print("hello world")
 
 # print(abs(-1))
@@ -31,21 +115,6 @@ print(reduce(lambda x, y: x * 10 + y,map(char2num,'13579')))
 # print(sorted(['bob', 'about', 'Zoo', 'Credit'], key=str.lower, reverse=True))
 
 
-# L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
-# def by_name(t):
-#     return t[0].upper()
-# print(sorted(L, key=by_name))
-# def by_score(t):
-#     return -t[1]
-# print(sorted(L, key=by_score, reverse=False))
-
-
-# print(int('12345', base=8))
-#
-# import functools
-#
-# int2 = functools.partial(int, base=2)
-# print(int2('1000000'))
 
 
 # import sys
@@ -208,6 +277,7 @@ print(reduce(lambda x, y: x * 10 + y,map(char2num,'13579')))
 # print('Exit code:', r)
 
 
+# 进程间通信
 # from multiprocessing import Process, Queue
 # import os, time, random
 # # 写数据进程
@@ -297,17 +367,22 @@ print(reduce(lambda x, y: x * 10 + y,map(char2num,'13579')))
 
 
 # 阶乘
-def factorial(num):
-    if num == 1 or num == 0:
-        return 1
-    else:
-        return num *factorial(num-1)
-def main():
-    num = int(input("请输入需要求阶乘的整数:"))
-    result = factorial(num)
-    print("%d的阶乘为%d"%(num, result))
-    pass
-if __name__ == '__main__':
-    main()
+# def factorial(num):
+#     if num == 1 or num == 0:
+#         return 1
+#     else:
+#         return num *factorial(num-1)
+# def main():
+#     num = int(input("请输入需要求阶乘的整数:"))
+#     result = factorial(num)
+#     print("%d的阶乘为%d"%(num, result))
+#     pass
+# if __name__ == '__main__':
+#     main()
+
+# import re
+# print(re.split(r'[\s\,\;]+', 'a,b;; c  d'))
 
 
+import time
+print(time.time())
