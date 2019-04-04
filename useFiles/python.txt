@@ -32,6 +32,7 @@ np.where(arr > 0, 2, arr):	将所有正值替换为2，所有负值不变
 axis：0沿行方向↓，1沿列方向→
 x.dot(y)：矩阵点积
 np.random.seed(1234)：更改随机数生成种子
+pd.isnull()	notnull()
 
 
 
