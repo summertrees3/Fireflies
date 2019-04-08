@@ -33,8 +33,12 @@ axis：0沿行方向↓，1沿列方向→
 x.dot(y)：矩阵点积
 np.random.seed(1234)：更改随机数生成种子
 pd.isnull()	notnull()
-
-
-
+inplace=True：小心使用，它会销毁所有被删除的数据
+利用标签的切片运算与普通的Python切片运算不同，其末端是包含的（含头含尾）
+df1.add(df2, fill_value=0)：填充值fill_value
+frame.sort_index(axis=1, ascending=False)：按轴上索引降序排序
+frame.sort_values(by=['a', 'b'])：按值排序
+corr方法用于计算两个Series中重叠的、非NA的、按索引对齐的值的相关系数。cov用于计算协方差。
+value_counts用于计算一个Series中各值出现的频率，按值频率降序排列
 
 
