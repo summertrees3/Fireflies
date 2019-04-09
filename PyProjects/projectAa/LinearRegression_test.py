@@ -6,12 +6,11 @@ from sklearn.cross_validation import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import cross_val_predict
 
-
 data = pd.read_csv('E:/useFiles/CCPP/Folds5x2_pp.csv')
 # print(type(data))
 print(data[:3])
 # print(data.shape)
-train_test_split()
+
 X = data[['AT', 'V', 'AP', 'RH']]
 y = data[['PE']]
 # 训练集和测试集划分
@@ -33,6 +32,7 @@ predicted = cross_val_predict(linreg, X, y, cv=10)
 print("交叉MSE：", metrics.mean_squared_error(y, predicted))
 print("交叉RMSE：", np.sqrt(metrics.mean_squared_error(y, predicted)))
 
+
 # 画图
 fig, ax = plt.subplots()
 ax.scatter(y, predicted)
@@ -40,4 +40,3 @@ ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
 ax.set_xlabel('Measured')
 ax.set_xlabel('Predicted')
 plt.show()
-
