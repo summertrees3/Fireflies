@@ -9,6 +9,7 @@ from sklearn import metrics
 import matplotlib.pyplot as plt
 
 sp500 = pd.read_csv("E:/useFiles/sp500.csv", usecols=[0, 4])
+print(sp500.info())
 # print(sp500.head(10))
 next_day = sp500["Close"].iloc[1:]
 # print(type(next_day))
