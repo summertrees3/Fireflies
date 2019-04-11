@@ -41,4 +41,21 @@ frame.sort_values(by=['a', 'b'])：按值排序
 corr方法用于计算两个Series中重叠的、非NA的、按索引对齐的值的相关系数。cov用于计算协方差。
 value_counts用于计算一个Series中各值出现的频率，按值频率降序排列
 
+pd.read_csv('examples/ex2.csv', )	
+header=None	文件第一行非列名，自动添加arange
+names=['a', 'b', 'c', 'd', 'message']	自定义列名
+index_col=['key1', 'key2']	将多个列做成一个层次化索引，只需传入由列编号或列名组成的列表
+skiprows=[0, 2, 3]	跳过文件的第一、三、四行
+
+pd.read_table('examples/ex3.txt', sep='\s+')	sep分隔符：字段是被数量不同的空白字符间隔开
+
+data.to_csv('examples/out.csv', )
+sep='|'	分隔符
+na_rep='NULL'	缺失值在输出结果中会被表示为空字符串，用NULL替代
+index=False, header=False	禁用行和列的标签
+columns=['a', 'b', 'c']	只写出一部分的列
+
+
+
+
 
