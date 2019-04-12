@@ -40,6 +40,10 @@ frame.sort_index(axis=1, ascending=False)：按轴上索引降序排序
 frame.sort_values(by=['a', 'b'])：按值排序
 corr方法用于计算两个Series中重叠的、非NA的、按索引对齐的值的相关系数。cov用于计算协方差。
 value_counts用于计算一个Series中各值出现的频率，按值频率降序排列
+close_timestamps=pd.to_datetime(failures['Closing Date']) close_timestamps.dt.year.value_counts()	计算按年份倒闭的银行数
+inplace=True	对现有对象进行就地修改，不返回新对象
+
+
 
 pd.read_csv('examples/ex2.csv', )	
 header=None	文件第一行非列名，自动添加arange
@@ -54,6 +58,27 @@ sep='|'	分隔符
 na_rep='NULL'	缺失值在输出结果中会被表示为空字符串，用NULL替代
 index=False, header=False	禁用行和列的标签
 columns=['a', 'b', 'c']	只写出一部分的列
+
+丢弃缺失数据：
+dropna(axis=1, how='all'/'any')
+填充缺失数据：
+fillna(0)
+fillna({1: 0.5, 2: 0})	对不同的列填充不同的值
+fillna(method='ffill', limit=2)
+移除重复数据：
+drop_duplicates(['k1', 'k2'], keep='last')
+利用函数或映射进行数据转换：
+lowercased.map(meat_to_animal) 或 data['food'].map(lambda x: meat_to_animal[x.lower()])	Series的map方法可以接受一个函数或含有映射关系的字典型对象
+替换值：
+data.replace([-999, -1000], [np.nan, 0])
+data.replace({-999: np.nan, -1000: 0})
+结合字典型对象实现对部分轴标签的更新：
+data.rename(index={'OHIO': 'INDIANA'}, columns={'three': 'peekaboo'})
+面元划分：
+pd.cut(ages, bins, labels=group_names)
+根据数据的值是正还是负，np.sign(data)可以生成1和-1
+
+
 
 
 
