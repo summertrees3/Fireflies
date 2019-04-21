@@ -1,0 +1,111 @@
+
+python动态语言
+-----1-----
+list[]：有序可重复集合，可以随时添加和删除其中的元素；len/append/insert/pop/
+tuple()：不能修改
+set{}：无序无重复，元素是不可变对象；add/remove
+dict{}：key必须是不可变对象；get/pop
+-----2-----
+函数可以同时返回多个值，其实就是一个tuple。
+-----3-----
+生成器()：边循环边计算；(x * x for x in range(10))
+-----4-----
+__name，类的private私有变量，使用get_name，set_name
+__xxx__是特殊变量，特殊变量是可以直接访问的
+-----5-----
+实例属性优先级比类属性高
+给一个实例绑定的方法，对另一个实例是不起作用的
+__slots__ = ('name', 'age') # 用tuple定义允许绑定的属性名称
+-----6-----
+@property广泛应用在类的定义中，可以保证对参数进行必要的检查
+-----7-----
+在一个python进程中，GIL(全局解释器锁)只有一个，导致了多线程无法利用多核
+
+
+
+
+
+数据分析补充：
+arr.astype(np.float64)：	转换dtype
+data[~(names == 'Bob')]：	~操作符用来反转条件
+np.where(arr > 0, 2, arr):	将所有正值替换为2，所有负值不变
+axis：0沿行方向↓，1沿列方向→
+x.dot(y)：矩阵点积
+np.random.seed(1234)：更改随机数生成种子
+pd.isnull()	notnull()
+inplace=True：小心使用，它会销毁所有被删除的数据
+利用标签的切片运算与普通的Python切片运算不同，其末端是包含的（含头含尾）
+df1.add(df2, fill_value=0)：填充值fill_value
+frame.sort_index(axis=1, ascending=False)：按轴上索引降序排序
+frame.sort_values(by=['a', 'b'])：按值排序
+corr方法用于计算两个Series中重叠的、非NA的、按索引对齐的值的相关系数。cov用于计算协方差。
+value_counts用于计算一个Series中各值出现的频率，按值频率降序排列
+close_timestamps=pd.to_datetime(failures['Closing Date']) close_timestamps.dt.year.value_counts()	计算按年份倒闭的银行数
+inplace=True	对现有对象进行就地修改，不返回新对象
+
+
+
+pd.read_csv('examples/ex2.csv', )	
+header=None	文件第一行非列名，自动添加arange
+names=['a', 'b', 'c', 'd', 'message']	自定义列名
+index_col=['key1', 'key2']	将多个列做成一个层次化索引，只需传入由列编号或列名组成的列表
+skiprows=[0, 2, 3]	跳过文件的第一、三、四行
+
+pd.read_table('examples/ex3.txt', sep='\s+')	sep分隔符：字段是被数量不同的空白字符间隔开
+
+data.to_csv('examples/out.csv', )
+sep='|'	分隔符
+na_rep='NULL'	缺失值在输出结果中会被表示为空字符串，用NULL替代
+index=False, header=False	禁用行和列的标签
+columns=['a', 'b', 'c']	只写出一部分的列
+
+丢弃缺失数据：
+dropna(axis=1, how='all'/'any')
+填充缺失数据：
+fillna(0)
+fillna({1: 0.5, 2: 0})	对不同的列填充不同的值
+fillna(method='ffill', limit=2)
+移除重复数据：
+drop_duplicates(['k1', 'k2'], keep='last')
+利用函数或映射进行数据转换：
+lowercased.map(meat_to_animal) 或 data['food'].map(lambda x: meat_to_animal[x.lower()])	Series的map方法可以接受一个函数或含有映射关系的字典型对象
+替换值：
+data.replace([-999, -1000], [np.nan, 0])
+data.replace({-999: np.nan, -1000: 0})
+结合字典型对象实现对部分轴标签的更新：
+data.rename(index={'OHIO': 'INDIANA'}, columns={'three': 'peekaboo'})
+面元划分：
+pd.cut(ages, bins, labels=group_names)
+根据数据的值是正还是负，np.sign(data)可以生成1和-1
+
+
+
+
+
+【4-17 工作】
+1、KNN最近邻、决策树、随机森林案例分析（泰坦尼克号生还）
+2、无监督学习中聚类、降维概念性理解
+
+
+【总结】
+带标签的训练集——回归、分类
+参数化模型：线性回归、对数几率回归、支持向量机
+非参数模型：KNN最近邻、决策树、随机森林
+
+无标签的训练集——聚类、降维
+k均值聚类、层次聚类
+主成分分析（PCA）、奇异值分解（SVD）
+
+
+
+【4-18 工作】
+1、神经网络和深度学习基础概念和扩展
+2、对强化学习的初步认识
+3、ng logistic回归视频学习
+
+
+【总结】
+1、深度学习和强化学习首先都是自主学习系统。它们之间的区别在于，深度学习是从训练集中学习（使用现有数据来训练算法），然后将学习到的知识应用于新数据集，是一种静态学习；而强化学习是通过连续的反馈（实践）来调整自身的动作以获得最优结果，是一种不断试错的过程，它是动态学习。
+2、CNN对于图像、计算机视觉任务非常高效，RNN拥有内建记忆适合语言问题。
+
+
