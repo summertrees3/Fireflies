@@ -1,0 +1,150 @@
+man cd
+whereis（查找更快）		find
+shutdown -h 20:25 
+sync; sync; sync; reboot
+mkdir -p test1/test2
+nl -ba -n rz -w 3 test.sh	列出行号
+less	/:向下查找	?:向上查找	n:下一个	N:上一个	[pagedown]:向下翻一页	[pageup]:向上翻一页
+head -n 20 test.sh | tail -n 10
+touch -t 201903281134 t1.sh	修订档案的日期与时间
+umask 002	新建档案与目录的预设权限
+chattr +aiS test.sh		lsattr test.sh	档案隐藏属性
+df -h:列出档案系统的整体磁碟使用量	du -h:当前目录下的所有档案容量
+ln -s mysql-5.7.24-linux mysql:符号链接
+lsblk:列出系统上的所有磁碟列表
+tar -zcvf pag.tar.gz .:压缩		tar -zxvf pag.tar.gz -C /usr/local:解压缩
+dd if=test/word.txt of=test1/word.txt:备份
+
+
+vi编辑
+:100,200s/vbird/VBIRD/g	在100到200列之间搜寻vbird并取代为VBIRD
+:1,$s/word1/word2/gc	从第一列到最后一列寻找word1字串，并将该字串取代为word2并确认
+gg      文始
+shift+g 文末
+:n    	第n行
+u       后退
+ctrl+r  前进
+o       换行
+r       替换当前字符
+ctrl+g  显示当前行号
+/word   向游标之下查找某个字符串
+?word   向游标之上查找某个字符串
+x       向后逐字删除
+X       向前逐字删除
+nx    	连续向后删除n个字符
+d$      删除游标所在处，到该行的最后一个字符
+d0      删除游标所在到该行的最前面的一个字符
+dd      删除当前行
+d1G     删除游标所在到第一行的所有数据
+dG      删除游标所在到最后一行的所有数据
+ndd   	删除游标下n行
+nyy   	复制游标下n行
+np    	粘贴游标下n遍
+
+#同时编辑两个文件,在两个文件中拷贝剪贴文本 
+vi file1 file2 
+yy 同时打开两个文件,在文件1的游标所在处拷贝所在行 
+:n 切换到文件2 (n=next) 
+p 在文件2的游标所在处粘贴所拷贝的行 
+:N 切换回文件1
+
+
+read -p "Please keyin your name: " -t 30 named	提示使用者30秒内输入自己的大名，将该输入字串作为名为named的变数内容 
+declare -i sum=100+300+50; echo ${sum}	宣告变数类型
+var=$((运算内容))
+$()和``		先完成引号里的命令行，然后将其结果替换出来，再重组成新的命令行
+
+
+echo ${PATH} | cut -d ':' -f 3,5	截取
+export | cut -c 12-
+last | grep 'root'	取出有字串root的行
+cat /etc/man_db.conf | col -x | cat -A | more	col -x将tab键转换成对等的空白键输出
+
+^符号在[]内代表『反向选择』，在[]之外则代表定位在行首
+grep -v '^$' /etc/rsyslog.conf | grep -v '^#'	『 -v '^$' 』代表不要空白行，『 -v '^#' 』代表不要开头是#的那行
+. (小数点)：代表『一定有一个任意字元』
+* (星星号)：代表『重复前一个字元，0到无穷多次』
+nl /etc/passwd | sed '2,5c No 2-5 number'	将第2-5行的内容取代称为『No 2-5 number』 （adci新增删除取代插入）
+last -n 5 | awk '{print $1 "\t" $3}'	awk主要是处理『每一行的栏位内的资料』，而预设的『栏位的分隔符号为"空白键"或"[tab]键" 』
+diff /etc/rc0.d/ /etc/rc5.d/	比对不同目录下的相同档名的内容
+
+
+test -e filename	测试该『档名』是否存在
+${0}：文件名
+$# ：代表后接的参数『个数』
+"$@" ：代表『 "$1" "$2" "$3" "$4" 』之意，每个变数是独立的(用双引号括起来)
+-------------------------------------
+if [ "${1}" == "hello" ]; then
+	echo "Hello, how are you ?"
+elif [ "${1}" == "" ]; then
+	echo "You MUST input parameters, ex> {${0} someword}"
+else
+	echo "The only parameter is 'hello', ex> {${0} hello}"
+fi
+-------------------------------------
+case ${1} in
+  "hello")
+	echo "Hello, how are you ?"
+	;;
+  "")
+	echo "You MUST input parameters, ex> {${0} someword}"
+	;;
+  *)    #其实就相当于万用字元，0~无穷多个任意字元之意！
+	echo "Usage ${0} {hello}"
+	;;
+esac
+--------------------------------------
+s=0   #这是加总的数值变数 
+i=0   #这是累计的数值，亦即是1, 2, 3....
+while [ "${i}" != "100" ]
+do
+	i=$(($i+1))    #每次i都会增加1 
+	s=$(($s+$i))   #每次都会加总一次！
+done
+echo "The result of '1+2+3+...+100' is ==> $s"
+--------------------------------------
+network="192.168.1"               #先定义一个网域的前面部分！
+for sitenu in $(seq 1 100)        # seq为sequence(连续)的缩写之意
+do
+	# 底下的程式在取得ping 的回传值是正确的还是失败的！
+        ping -c 1 -w 1 ${network}.${sitenu} &> /dev/null && result=0 || result=1
+	# 开始显示结果是正确的启动(UP) 还是错误的没有连通(DOWN)
+        if [ "${result}" == 0 ]; then
+                echo "Server ${network}.${sitenu} is UP."
+        else
+                echo "Server ${network}.${sitenu} is DOWN."
+        fi
+done
+--------------------------------------
+数值处理：
+nu=100
+s=0
+for (( i=1; i<=${nu}; i=i+1 ))
+do
+	s=$((${s}+${i}))
+done
+echo "The result of '1+2+3+...+${nu}' is ==> ${s}"
+
+
+su - username	连同PATH/USER/MAIL 等变数都转成新使用者的环境
+su - -c "指令串"	仅执行一次root的指令
+『sudo "指令串"』仅有规范到/etc/sudoers内的用户才能够执行
+
+
+at用来直接下达单一工作排程，atq用来查询，atrm用来删除错误的指令
+crontab -e 
+*/5 0,23 * * 0-7 /home/dmtsai/test.sh
+#分时日月周|<===指令串===>|
+,代表分隔时段	-代表一段时间范围内		/n每隔n单位间隔
+
+tar -zpcvf /tmp/etc.tar.gz /etc > /tmp/log.txt 2>&1 &	将指令丢到背景中执行
+[ctrl]-z	将目前的工作丢到背景中暂停
+jobs	观察目前的背景工作状态
+kill -9	强制删除一个工作
+nohub [指令与参数] &  (在终端机背景中工作)	在离线或登出系统后还能够让工作继续进行
+
+
+timedatectl set-time "2015-09-01 12:02"	修改时间
+gcc -O hello.c -c 在编译的时候，依据作业环境给予最佳化执行速度 ,会自动的产生hello.o这个档案并进行最佳化！
+
+
