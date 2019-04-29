@@ -83,7 +83,7 @@ columns=['a', 'b', 'c']	只写出一部分的列
 
 df.join(pd.get_dummies(df.color))
 pd.merge(df1, df2, on=['key1', 'key2'], how='outer')	合并数据集(多对多连接产生的是行的笛卡尔积)
-left2.join([right2, another], how='outer')		按索引合并，要求没有重叠的列
+left2.join([right2, another], how='outer')		按【索引】合并，要求没有重叠的列		
 
 
 df.groupby(['key1', 'key2']).size()
@@ -106,7 +106,17 @@ df.groupby(['key1', 'key2']).size()
  grouped['tip_pct', 'total_bill'].agg([('foo', 'mean'), ('bar', 'std')])
 对不同的列应用不同的函数：
  grouped.agg({'tip_pct':['min', 'max', 'mean', 'std'], 'size':'sum'})
+apply传入自定义函数：
+ f = lambda x: x.describe()
+ grouped.apply(f)
 
+透视表pivot_table的aggfunc默认聚合类型：分组平均数mean
+只聚合tip_pct和size，而且想根据time和day进行分组，将smoker放到列上：
+ tips.pivot_table(['tip_pct', 'size'],  index=['time', 'day'], columns='smoker')
+ tips.groupby(['time', 'day', 'smoker'])[['tip_pct', 'size']].mean().unstack()	——使用groupby实现
+交叉表crosstab计算分组频率：
+ pd.crosstab([tips.time, tips.day], tips.smoker, margins=True)
+ tips.pivot_table('size', index=['time','day'], columns='smoker', aggfunc='count',  margins=True, fill_value=0)		——使用pivot_table实现
 
 
 
@@ -131,30 +141,9 @@ k均值聚类、层次聚类
 
 
 
-
-【4-23 工作】
-1、pandas数据分组聚合操作（groupby、agg、apply）
-2、分位数和桶分析：用特定于分组的值填充缺失值；随机采样和排列；分组加权平均数和相关系数；组级别的线性回归
+【4-28 工作】
+1、对张周中文文件和出入池与出池酒精度文件加入入池到出池的天气数据，格式已确认
+2、张周中文文件天气数据已加入完成，出入池与出池酒精度文件天气数据预计明天上午完成
 
 【总结】
-df.groupby(['key1', 'key2']).size()
-对分组进行迭代：
- for (k1, k2), group in df.groupby(['key1', 'key2']):
-	print((k1, k2))
-	print(group)
-对部分列进行聚合：
- df.groupby(['key1', 'key2'])[['data2']].mean()
- df.groupby(['key1', 'key2'])['data2'].mean()
- 返回的对象是一个已分组的DataFrame（如果传入的是列表或数组）或已分组的Series（如果传入的是标量形式的单个列名）
-通过字典或Series分组：
- people.groupby(map_series, axis=1).count()
-通过函数跟数组、列表、字典、Series混用分组：
- people.groupby([len, key_list]).min()
-通过索引级别分组：
- hier_df.groupby(level='cty', axis=1).count()
- 
-对某几列应用一组聚合函数（重命名）：
- grouped['tip_pct', 'total_bill'].agg([('foo', 'mean'), ('bar', 'std')])
-对不同的列应用不同的函数：
- grouped.agg({'tip_pct':['min', 'max', 'mean', 'std'], 'size':'sum'})
 
