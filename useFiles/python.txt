@@ -65,7 +65,7 @@ columns=['a', 'b', 'c']	只写出一部分的列
 填充缺失数据：
  fillna(0)
  fillna({1: 0.5, 2: 0})	对不同的列填充不同的值
- fillna(method='ffill', limit=2)
+ fillna(method='ffill', limit=2)	用前一个非缺失值去填充该缺失值，反之bfill
 移除重复数据：
  drop_duplicates(['k1', 'k2'], keep='last')
 利用函数或映射进行数据转换：
@@ -120,6 +120,26 @@ apply传入自定义函数：
 
 
 
+时间：
+parse('Jan 31, 1997 10:45 PM')	解析日期
+pd.to_datetime(datestrs)	处理成组日期
+pd.date_range('1/1/2000', periods=1000, freq='W-WED')	
+ start/end			开始/结束日期
+ normalize=True		规范化到午夜的时间戳
+ts.shift(2)				位移数据，索引不变
+ts.shift(2, freq='M')	对时间戳位移，数据不变
+ts.resample('M').mean()
+tz_localize/tz_convert	时区本地化/转换
+pd.period_range('2000-01-01', '2000-06-30', freq='M')	时期范围
+p = pd.Period('2007', freq='A-DEC')
+ p.asfreq('M', how='start')		频率转换
+pd.PeriodIndex(year=data.year, quarter=data.quarter, freq='Q-DEC')		将年和季度合并成一个索引
+ts.resample('M', kind='period').mean()	降采样后聚合
+ts.resample('5min').ohlc()		计算各面元的四个值:open/high/low/close
+
+
+
+
 
 
 
@@ -141,9 +161,9 @@ k均值聚类、层次聚类
 
 
 
-【4-28 工作】
-1、对张周中文文件和出入池与出池酒精度文件加入入池到出池的天气数据，格式已确认
-2、张周中文文件天气数据已加入完成，出入池与出池酒精度文件天气数据预计明天上午完成
+【4-30 工作】
+1、pandas处理时区，对时间、时期的重采样和频率转换
+2、学习使用matplotlib包可视化数据
 
 【总结】
 
