@@ -1,5 +1,0 @@
-1,jack,12
-2,tom,22
-3,jerry,23
-4,alice,31
-5,lily,18
