@@ -320,6 +320,50 @@ order by
     sales;
 
 --6--
+SET @sql = NULL;
+SELECT
+ GROUP_CONCAT(DISTINCT
+  CONCAT(
+   'MAX(IF(s.paperName = ''',
+   s.paperName,
+   ''', s.score, NULL)) AS ''',
+   s.paperName, ''''
+  )
+ ) INTO @sql
+FROM t_info_exam s;
+SET @sql = CONCAT('Select st.*, ', @sql, 
+            ' From t_info_students st
+            inner Join t_info_exam s On st.userId = s.paperOwnerId
+            Group by st.card_id');
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+
+SET @sql = NULL;
+SELECT
+ GROUP_CONCAT(DISTINCT
+  CONCAT(
+   'MAX(IF(s.paperName = ''',
+   s.paperName,
+   ''', s.score, NULL)) AS ''',
+   s.paperName, ''''
+  )
+ ) INTO @sql
+FROM t_info_exam s where paperOwnerId in
+<foreach item="cardIdIteam" collection="array" open="(" separator="," close=")">
+    #{cardIdIteam}
+</foreach>;
+SET @sql = CONCAT('Select st.*, ', @sql, 
+            ' From t_info_students st
+            inner Join t_info_exam s On st.userId = s.paperOwnerId
+            Group by st.card_id');
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+--
+
 
 
 
