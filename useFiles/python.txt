@@ -57,6 +57,7 @@ sep='|'	分隔符
 na_rep='NULL'	缺失值在输出结果中会被表示为空字符串，用NULL替代
 index=False, header=False	禁用行和列的标签
 columns=['a', 'b', 'c']	只写出一部分的列
+encoding="utf_8_sig"	中文乱码
 
 
 
@@ -140,7 +141,44 @@ ts.resample('5min').ohlc()		计算各面元的四个值:open/high/low/close
 
 
 
+画图：
+fig=plt.figure();ax=fig.add_subplot(1,1,1)
+fig,axes=plt.subplots(2,1)
+plot	线型图
+plot.bar、barh	柱状图		减少绘图前合计数据的工作量：seaborn.barplot(x='tip_pct', y='day', hue='time', data=tips, orient='h')
+plot.hist(bins=50)	直方图
+plot.density/kde	密度图		同时实现直方图+密度图：seaborn.distplot(values, bins=100, color='k')
+seaborn.regplot('m1', 'unemp', data=trans_data)		散布图/点图
+seaborn.pairplot(trans_data, diag_kind='kde', plot_kws={'alpha': 0.2})	散布图矩阵：支持在对角线上放置每个变量的直方图或密度估计，plot_kws参数可以让我们传递配置选项到非对角线元素上的图形使用
+seaborn.factorplot(x='day', y='tip_pct', hue='time', col='smoker', kind='bar', data=tips[tips.tip_pct < 1])	分面网格		盒图：kind='box'
 
+
+
+
+
+relplot
+lmplot
+catplot
+boxplot
+scatterplot
+jointplot
+pairplot
+
+用散点图关联变量
+用线图强调连续性
+
+
+
+水和酒精是主要成分，有机物包括：高级醇、甲醇、多元醇、醛类、羧酸、酯类、酸类等
+乙酸和乳酸是白酒中含量最大的两种酸
+酯类主要包括乙酸乙酯、丁酸乙酯、醋酸戊酯、丁酸戊酯、乳酸乙酯等
+醛类包括甲醛、乙醛、糠醛、丁醛和戊醛等
+异戊醇、丁醇、异丁醇、丙醇、异丙醇和少量环状醇。其中以异戊醇、异丁醇较多。
+
+酒是发酵产物，其中有甲酸、乙酸、丁酸、乙酸乙酯、丁酸乙酯、乙酸戎酯、丁酸戎酯，少量的丙醇、丁醇、戎醇等。
+
+现有结论：
+入池酸度与总酯正相关
 
 
 
@@ -161,9 +199,21 @@ k均值聚类、层次聚类
 
 
 
-【4-30 工作】
-1、pandas处理时区，对时间、时期的重采样和频率转换
-2、学习使用matplotlib包可视化数据
+洋河酒厂数据平台：http://47.97.107.175/YHBD/#/home
+admin
+nzbscklj
+
+
+
+【6-6 工作】
+1、【原酒理化数据】中的排次改为出池排次，值改为1排、2排、3排、4排；组编号1-20改为01组-20组，复制相同列，其中一列1B-20B改为01组-20组。
+2、已合并【原酒理化数据】和【stepA_1】，将根据下方结论进行筛选。
+
+酒厂结论：
+--【原酒理化数据】取样日期 减去【stepA_1】出池日期，大于等于4小于等于10。
+
+
 
 【总结】
+
 
