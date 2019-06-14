@@ -15,7 +15,7 @@ next_day = sp500["Close"].iloc[1:]
 # print(type(next_day))
 sp500 = sp500.iloc[:-1, :]
 sp500["next_day"] = next_day.values
-# print(sp500.head(10))
+print(sp500.head(10))
 # print(sp500.dtypes)
 
 
@@ -34,7 +34,7 @@ train_x,test_x,train_y,test_y = train_test_split(sp500[["Close"]],sp500[["next_d
 
 
 # 线性回归建模：基于梯度下降的最小二乘法
-# regressor = LinearRegression()
+regressor = LinearRegression()
 # 均方误差: 82.1910857208317
 # 均方根误差: 9.065929942418025
 # 平均错误: 4.132879582938576
@@ -45,7 +45,7 @@ train_x,test_x,train_y,test_y = train_test_split(sp500[["Close"]],sp500[["next_d
 
 
 # 多项式回归建模：y=w0+w1x+w2x^2+w3x^3+...+wnx^n
-regressor = pl.make_pipeline(sp.PolynomialFeatures(degree=2), LinearRegression())
+# regressor = pl.make_pipeline(sp.PolynomialFeatures(degree=2), LinearRegression())
 
 # poly_features_2 = sp.PolynomialFeatures(degree=2, include_bias=False)
 # poly_train_x_2 = poly_features_2.fit_transform(train_x)
@@ -68,17 +68,20 @@ regressor.fit(train_x, train_y.values.flatten())
 next_day_predictions = regressor.predict(test_x)
 
 # 模型评估
-# mse = sum((next_day_predictions - test_y) ** 2) / len(next_day_predictions)
+# mse = sum((next_day_predictions - test_y.values) ** 2) / len(next_day_predictions)
 mse= metrics.mean_squared_error(test_y, next_day_predictions)
 print("均方误差:", mse)
+print(type(test_y))
+print(type(next_day_predictions))
 # rmse = np.sqrt(sum((next_day_predictions - test_y) ** 2) / len(next_day_predictions))
 # print("均方根误差:", rmse)
 # mae = sum(abs(next_day_predictions - test_y)) / len(next_day_predictions)
+# metrics.mean_absolute_error
 # print("平均错误:", mae)
 
 # 可视化
 plt.scatter(test_x, test_y)
-plt.plot(test_x, next_day_predictions)
+plt.plot(test_x, next_day_predictions, color='k')
 plt.show()
 
 # 通常为了改善模型的精度我们会进行以下分析：
