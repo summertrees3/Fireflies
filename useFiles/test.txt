@@ -1,20 +1,4 @@
-chang ting wai,gu dao bian,fang cao bi lian tian
-wan feng fu liu di sheng can,xi yang shan wai shan
-tian zhi ya,di zhi jiao,zhi jiao ban ling luo
-yi hu zhuo jiu jin yu huan,jin xiao bie meng han
-chang ting wai,gu dao bian,fang cao bi lian tian
-wen jun ci qu ji shi lai,lai shi mo pai huai
-tian zhi ya,di zhi jiao,zhi jiao ban ling luo
-ren sheng nan de shi huan ju,wei you bie li duo
 
-you ren zhu gao lou
-you ren zai shen gou
-you ren guang wan zhang
-you ren yi shen xiu
-shi ren wan qian zhong
-fu yun mo qu qiu
-si ren ruo cai hong
-yu shang fang zhi you
 
 
 如果你相信历史长期发展的必然性，那么当你经历了种种失败，年老时回望自己人生，才能平静地接受命运，体会其中的必然，然后静静地等待隧道的尽头开始展现一丝曙光，证明那些企图逆转命运的努力，并非无谓和徒劳。         ——黄仁宇
@@ -28,110 +12,23 @@ yu shang fang zhi you
 
 
 
-矩阵A:m×n，矩阵B:x×y，A×B的可行条件:n=x，结果矩阵C:m×y。
-C=A×B的第1行第1列的元素由A的第1行元素与B的第1列元素对应相乘，再取乘积之和．
+
 
 
 反复看，不用太仔细，不要指望一次就掌握。
 
 
 
-create table students_test(
-id int unsigned not null auto_increment primary key,
-name char(8) not null,
-gender char(4) not null,
-age tinyint unsigned not null,
-tel char(13) null default "-"
-);
-
-INSERT IGNORE INTO当插入数据时，在设置了记录的唯一性后，如果插入重复数据，将不返回错误，只以警告形式返回。 而REPLACE INTO如果存在primary 或 unique相同的记录，则先删除掉，再插入新记录。
-
-USING(相当于on条件) 
 
 
 
-训练集、验证集和测试集；训练集用来模型训练，验证集用来调整参数，而测试集用来衡量模型表现好坏。
+
 
 hadoop+MPP
 hive+vertica+postgresql+kylin
 
 ding_weiguo@hoperun.com
 Hoperun8714
-
-ip addr
-
-
-【02-25总结】
-python  -m pip install --upgrade pip
-pip install --upgrade --ignore-installed tensorflow
-anaconda安装tensorflow时加入的numpy，
-需要在安装完成后pip uninstall numpy==1.16.1掉
-
-回归：预测数量，定量输出，连续变量预测
-分类：预测标签，定性输出，离散变量预测
-
-
-【02-26总结】
-AI>>机器学习>>神经网络
-
-人工智能中的六大主要算法和技术：
-1.机器学习 2.搜索和优化算法 3.约束满足
-4.逻辑推理 5.概率推理 6.控制理论
-
-
-
-一致为真，预测判阴阳。
-TP真阳性：预测为正，实际也为正
-FP假阳性：预测为正，实际为负
-FN假阴性：预测与负、实际为正
-TN真阴性：预测为负、实际也为负。
-
-精确率Precision：分母是预测为正的样本数
-召回率Recall：分母是原来样本中所有的正样本数
-精确率P = TP真阳性/(TP真阳性+FP假阳性)
-召回率R = TP真阳性/(TP真阳性+FN假阴性)
-
-F1分数（F1Score）可以看作是模型精确率和召回率的一种加权平均，它的最大值是1，最小值是0，越大越好，1为理想状态。
-F1 = 2*P*R/(P+R)
-
-ROC曲线只需要真阳性率(TPR)和假阳性率(FPR)，将FPR和TPR定义为x和y轴，TPR就可以定义为灵敏度,而FPR就定义为1-特异度
-AUC的含义：ROC曲线下的面积（越大越好，1为理想状态）
-
-
-避免过拟合：
-1.使用更多训练数据。
-2.使用正则化，在损失函数里添加一个惩罚，来构建一个模型，避免为任意一个特征分配过多的解释性权重，或者允许考虑过多特征。
-
-
-
-——————————————————————————————————————————————
-*回归：线性回归是参数化方法
-
-
-如果变量是连续的（例如房价），取它们的均值；如果变量是离散的（例如猫或者狗），取它们的众数。
-
-
-
-2-Python学习（廖雪峰）---done
-3-python数据分析二刷
-4-视频课程：基础数学知识、机器学习（先看网易吴恩达）
-
-
-
-
-Maths 数学:
-1) Linear Algebra 线性代数
-2) Calculus  微积分
-3) Statistics 统计学
-4) Probability 概率论
-
-
-
-机器学习（模型层次结构角度）
-浅层学习（Shallow Learning）：没有隐藏层或只有一层隐藏层，分类、回归、聚类、降维等
-深度学习（Deep Learning）	：有较多的隐藏层
-卷积神经网络(CNN)：计算机视觉、图像分类
-递归神经网络(RNN)：LSTM和GRU，语言、文字
 
 
 

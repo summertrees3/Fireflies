@@ -362,6 +362,20 @@ PREPARE stmt FROM @sql;
 EXECUTE stmt;
 DEALLOCATE PREPARE stmt;
 
+--7--
+create table students_test(
+id int unsigned not null auto_increment primary key,
+name char(8) not null,
+gender char(4) not null,
+age tinyint unsigned not null,
+tel char(13) null default "-"
+);
+
+INSERT IGNORE INTO当插入数据时，在设置了记录的唯一性后，如果插入重复数据，将不返回错误，只以警告形式返回。 而REPLACE INTO如果存在primary 或 unique相同的记录，则先删除掉，再插入新记录。
+
+USING(相当于on条件)
+
+
 --
 
 
